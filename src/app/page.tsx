@@ -1,3 +1,4 @@
+"use client"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {Card,
   CardContent,
@@ -11,10 +12,12 @@ import {Card,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-
 import Marquee from '@/components/ui/marquee'
 import  ProjectCard  from '@/components/ui/image-card'
 import { Badge } from '@/components/ui/badge'
+import { DotPattern } from '@/components/ui/dot-pattern'
+import { Alert , AlertDescription,AlertTitle} from '@/components/ui/alert'
+
 
 
 
@@ -74,7 +77,15 @@ export default function Home() {
     }
   ]
   return (
-    <div className="min-h-screen p-6 md:p-8">
+    <>
+
+    <div className="fixed inset-0 -z-10">
+  <DotPattern />
+</div>
+
+  
+    <div className="min-h-screen p-6 md:p-8  ">
+      
       
       <div className="max-w-2xl mx-auto">
         
@@ -97,16 +108,10 @@ export default function Home() {
           
         </div>
 
-        
-        {/* <div className="flex items-center gap-2 mt-6 md:mt-8 p-4 border border-gray-800 rounded-lg">
-          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-          <p className="text-sm md:text-base">
-            Available - Open to new freelance projects and collaborations
-          </p>
-        </div> */}
+      
 
         
-        <Card className="mt-8 md:mt-12">
+        <Card className="mt-8 md:mt-12  bg-amber-50">
           <CardHeader>
             <CardTitle className="text-2xl md:text-3xl ">About Me</CardTitle>
           </CardHeader>
@@ -128,7 +133,7 @@ export default function Home() {
               <AccordionTrigger className="text-lg md:text-xl font-semibold">
                 <div className='flex  gap-4'>
                   <Avatar className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
-                    <AvatarImage src="https://example.com/company1-logo.png" alt="Company 1 Logo" />
+                    <AvatarImage src= "./Zentor.jpg" alt="Company 1 Logo" />
                     <AvatarFallback>CI</AvatarFallback>
                   </Avatar>
                   <h2 className="text-lg md:text-xl font-semibold">Software Engineer at TechCorp</h2>
@@ -146,7 +151,7 @@ export default function Home() {
               <AccordionTrigger className="text-lg md:text-xl font-semibold">
                 <div className='flex  gap-4'>
                   <Avatar className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
-                    <AvatarImage src="https://example.com/company2-logo.png" alt="Company 2 Logo" />
+                    <AvatarImage src="./founderscart_logo.jpg" alt="Company 2 Logo" />
                     <AvatarFallback>CI</AvatarFallback>
                   </Avatar>
                   <div>
@@ -166,7 +171,7 @@ export default function Home() {
               <AccordionTrigger className="text-lg md:text-xl font-semibold">
                 <div className='flex  gap-4'>
                   <Avatar className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
-                    <AvatarImage src="https://example.com/company2-logo.png" alt="Company 2 Logo" />
+                    <AvatarImage src="./tringbox_logo.jpg" alt="Company 2 Logo" />
                     <AvatarFallback>CI</AvatarFallback>
                   </Avatar>
                   <h2 className="text-lg md:text-xl font-semibold">Frontend Developer at WebSolutions</h2>
@@ -207,6 +212,85 @@ export default function Home() {
 
         </div>
 
+        {/* Freelance CTA */}
+<div className="mt-16 md:mt-20">
+  <Card
+    className="
+      bg-secondary-background
+      border border-border
+      rounded-[var(--radius-base)]
+      shadow-shadow
+      
+    "
+  >
+    <CardHeader className="items-center text-center space-y-4 ">
+
+      <Badge
+        className="
+          bg-main text-main-foreground
+          border border-border
+          rounded-[var(--radius-base)]
+          shadow-shadow
+          px-4 py-1 
+          mx-auto
+          
+        "
+      >
+        Freelance & Collaboration
+      </Badge>
+
+      <CardTitle className="text-3xl md:text-5xl font-heading leading-tight">
+        Ready to Build <br className="hidden sm:block" />
+        Something Great?
+      </CardTitle>
+
+      <CardDescription className="max-w-xl text-foreground/70">
+        I'm available for freelance projects, consulting, and collaborations.
+        Whether you need a Web3 dApp, a full-stack application, or smart contract
+        development — let’s build something impactful.
+      </CardDescription>
+
+    </CardHeader>
+
+    <CardFooter className="flex flex-col sm:flex-row gap-4 justify-center pb-8">
+
+      <button
+        className="
+          bg-main text-main-foreground
+          border border-border
+          rounded-[var(--radius-base)]
+          px-8 py-4 font-base
+          shadow-shadow
+          transition-all
+          hover:translate-x-[1px]
+          hover:translate-y-[1px]
+        "
+      >
+        Send a Free Message
+      </button>
+
+      <button
+        className="
+          bg-background text-foreground
+          border border-border
+          rounded-[var(--radius-base)]
+          px-8 py-4 font-base
+          shadow-shadow
+          transition-all
+          hover:translate-x-[1px]
+          hover:translate-y-[1px]
+        "
+      >
+        <a href="mailto:jainabhishekarham@gmail.com">Send an Email</a>
+      </button>
+
+    </CardFooter>
+  </Card>
+</div>
+
+      
+        
+
      
         
        
@@ -219,5 +303,6 @@ export default function Home() {
        
 
     </div>
+    </>
   );
 }
