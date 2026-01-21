@@ -16,32 +16,81 @@ import Marquee from '@/components/ui/marquee'
 import  ProjectCard  from '@/components/ui/image-card'
 import { Badge } from '@/components/ui/badge'
 import { DotPattern } from '@/components/ui/dot-pattern'
-import { Alert , AlertDescription,AlertTitle} from '@/components/ui/alert'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
+import { Textarea } from '@/components/ui/textarea'
+import { useState } from 'react'
+import { toast } from "sonner"
+import emailjs from "@emailjs/browser"
+
 
 
 
 
 
 export default function Home() {
-  const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5']
+
+  const [message, setmessage] = useState("")
+
+  const SendMessage = async () => {
+    if (!message.trim()) {
+      toast.error("Please type a message")
+      return
+    }
+
+    try {
+      await emailjs.send(
+        "service_b15pwpg",
+        "template_acdqu9b",
+        {
+          message: message, // ONLY this
+        },
+        "tQXIQIjXZPr-ZbPJ9"
+      )
+
+      toast.success("Message sent successfully")
+      setmessage("")
+    } catch (error) {
+      console.error(error)
+      toast.error("Failed to send message")
+    }
+  }
+
+
+ const logosRow1 = [
+  { name: "AWS", src: "/logos/aws.svg" },
+  { name: "C", src: "/logos/c.svg" },
+  { name: "C++", src: "/logos/cplusplus.svg" },
+  { name: "CSS", src: "/logos/css.svg" },
+  { name: "Express", src: "/logos/express.svg" },
+  { name: "Framer", src: "/logos/framer.svg" },
+  { name: "HTML", src: "/logos/html.svg" },
+  { name: "JavaScript", src: "/logos/javascript.svg" },
+]
+
+const logosRow2 = [
+  { name: "MongoDB", src: "/logos/mongodb.svg" },
+  { name: "Node.js", src: "/logos/nodejs.svg" },
+  { name: "Postgres", src: "/logos/postgres.svg" },
+  { name: "Prisma", src: "/logos/prisma.svg" },
+  { name: "React", src: "/logos/react.svg" },
+  { name: "Shadcn UI", src: "/logos/shadcn.svg" },
+  { name: "SQL", src: "/logos/sql.svg" },
+  { name: "Tailwind", src: "/logos/tailwind.svg" },
+]
+ const allLogos = [...logosRow1, ...logosRow2]
+
   const projects = [
-    {
-      imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      title: "Analytics Dashboard",
-      year: "2024",
-      description: "A comprehensive analytics platform for tracking user metrics and visualizing data trends in real-time.",
-      tech: ["React", "TypeScript", "Chart.js", "Tailwind"],
-      website: "https://example.com",
-      source: "https://github.com/example/analytics"
-    },
-    {
-      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-      title: "Task Manager Pro",
-      year: "2023",
-      description: "Collaborative task management tool with real-time updates and team productivity tracking features.",
-      tech: ["Vue", "Node.js", "MongoDB", "Socket.io"],
-      website: "https://example.com",
-    },
+    
     {
       imageUrl: "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800&q=80",
       title: "E-Commerce Platform",
@@ -76,10 +125,25 @@ export default function Home() {
       source: "https://github.com/example/portfolio"
     }
   ]
+
+  const icon =["/phone-call-svgrepo-com (2).svg","/github-142-svgrepo-com.svg","/linkedin-svgrepo-com.svg"]
+  function iconclick(index:any){
+    if(index===0){
+      window.location.href="tel:+918527263456";
+    }
+    else if(index===1){
+      window.location.href="https://github.com/Abhishek123456789";
+    }
+    else if(index===2){
+      window.location.href="https://www.linkedin.com/in/abhishek-singh-700a8a254/";
+    }
+  }
+
   return (
     <>
+  
 
-    <div className="fixed inset-0 -z-10">
+<div className="fixed inset-0 -z-10">
   <DotPattern />
 </div>
 
@@ -113,7 +177,14 @@ export default function Home() {
         
         <Card className="mt-8 md:mt-12  bg-amber-50">
           <CardHeader>
+            <div className='flex flex-row justify-between gap-2'>
             <CardTitle className="text-2xl md:text-3xl ">About Me</CardTitle>
+            <div className='flex  gap-2'>
+            {icon.map((iconSrc, index) => (
+              <img key={index} src={iconSrc} onClick={(index)=>{iconclick}} alt={`Icon ${index + 1}`} className="w-6 h-6 md:w-8 md:h-8"/>
+            ))}
+            </div>
+            </div>
           </CardHeader>
           <CardContent>
             <p className="text-sm md:text-base leading-relaxed">
@@ -187,18 +258,14 @@ export default function Home() {
             </AccordionItem>
             </Accordion>
 
-          
-        </div>
 
-        <div className="mt-8 md:mt-12">
+             <div className="mt-8 md:mt-12">
+            <h1 className="text-2xl md:text-3xl font-bold mb-6">Skills & Technologies</h1>
+            <Marquee items={allLogos} type="logos" />
+          </div>
+ 
 
-          <h1 className="text-2xl md:text-3xl font-bold mb-6">Skills</h1>
-
-        <Marquee items={items} />
-       
-        </div>
-        
-          <div className="mt-8 md:mt-12">
+             <div className="mt-8 md:mt-12">
           <h1 className="text-2xl md:text-3xl font-bold mb-6 gap-6">Projects</h1>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -207,6 +274,19 @@ export default function Home() {
             ))}
           </div>
         </div>
+
+          
+        
+
+         
+
+  
+
+
+
+        
+        
+          
 
         <div>
 
@@ -254,6 +334,9 @@ export default function Home() {
 
     <CardFooter className="flex flex-col sm:flex-row gap-4 justify-center pb-8">
 
+<AlertDialog>
+       <AlertDialogTrigger asChild>
+
       <button
         className="
           bg-main text-main-foreground
@@ -268,6 +351,21 @@ export default function Home() {
       >
         Send a Free Message
       </button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Send Your Message </AlertDialogTitle>
+      </AlertDialogHeader>
+      <Textarea placeholder='Type your message'  value={message}
+      onChange={(e) => setmessage(e.target.value)}></Textarea>
+       <AlertDialogFooter>
+     <AlertDialogCancel onClick={() => setmessage("")}>
+  Cancel
+</AlertDialogCancel>
+      <AlertDialogAction onClick={()=>SendMessage()} >Send</AlertDialogAction>
+    </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <button
         className="
@@ -288,6 +386,16 @@ export default function Home() {
   </Card>
 </div>
 
+</div>
+      </div>
+
+      </div>
+    </>
+
+
+
+
+
       
         
 
@@ -296,13 +404,7 @@ export default function Home() {
        
 
 
-       
+  
 
-      </div>
-      
-       
-
-    </div>
-    </>
   );
 }
